@@ -7,9 +7,16 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ToolbarComponent implements OnInit {
 
+  loggedIn = false;
+  user = 'Matti';
+
   constructor() { }
 
   ngOnInit(): void {
+  }
+
+  login() {
+    this.loggedIn = !this.loggedIn;
   }
 
 }
