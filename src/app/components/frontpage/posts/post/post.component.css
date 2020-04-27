@@ -1,0 +1,13 @@
+.card-max {
+  max-width: 400px;
+}
+
+.align-left {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.card-main {
+  display: flex;
+  justify-content: space-between;
+}
