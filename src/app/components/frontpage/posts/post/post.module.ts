@@ -4,6 +4,12 @@ import { PostComponent } from './post.component';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { BrowserModule } from '@angular/platform-browser';
+import { MatExpansionModule } from '@angular/material/expansion';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatListModule } from '@angular/material/list';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+
 
 @NgModule({
   imports: [
@@ -11,6 +17,11 @@ import { BrowserModule } from '@angular/platform-browser';
     MatCardModule,
     MatButtonModule,
     MatIconModule,
+    MatExpansionModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatListModule,
+    MatProgressSpinnerModule,
   ],
   declarations: [
     PostComponent

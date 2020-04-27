@@ -9,14 +9,45 @@ import PostsInterface from '../PostsInterface';
 export class PostComponent implements OnInit {
 
   @Input() post: PostsInterface;
+  comments = [];
+  panelOpenState = false;
+  wait = true;
 
   constructor() { }
 
   ngOnInit(): void {
   }
 
-  test() {
-    console.log(this.post);
+  // delete when comments are done
+  makeComments() {
+    const post1 = 'comment 1';
+    const post2 = 'comment 2';
+    const post3 = 'comment 3';
+
+    this.comments.push(post1);
+    this.comments.push(post2);
+    this.comments.push(post3);
+    this.wait = false;
+  }
+
+  /**
+   * Opens comments section and starts a fetch
+   */
+  openComments() {
+    // Todo: fetch comments
+    this.panelOpenState = true;
+
+    // delete when comments are done
+    setTimeout(() => this.makeComments(), 5000);
+  }
+
+  /**
+   * Closes comment section and emptyes comments list
+   */
+  closeComments() {
+    this.panelOpenState = false;
+    this.comments = [];
+    this.wait = true;
   }
 
 }
