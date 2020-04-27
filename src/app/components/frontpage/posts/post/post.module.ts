@@ -9,7 +9,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatListModule } from '@angular/material/list';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   imports: [
@@ -22,6 +22,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
     MatInputModule,
     MatListModule,
     MatProgressSpinnerModule,
+    FormsModule,
   ],
   declarations: [
     PostComponent

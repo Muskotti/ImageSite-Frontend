@@ -34,3 +34,4 @@ export class PostsComponent implements OnInit {
     this.posts.push(obj2);
   }
 }
+

@@ -12,6 +12,7 @@ export class PostComponent implements OnInit {
   comments = [];
   panelOpenState = false;
   wait = true;
+  comment = '';
 
   constructor() { }
 
@@ -28,6 +29,14 @@ export class PostComponent implements OnInit {
     this.comments.push(post2);
     this.comments.push(post3);
     this.wait = false;
+  }
+
+  /**
+   * Post commet to backend and adds to the list
+   */
+  postComment() {
+    // Todo: add comment to backend
+    this.comments.push(this.comment);
   }
 
   /**
