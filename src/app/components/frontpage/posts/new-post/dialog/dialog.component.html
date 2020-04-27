@@ -1,16 +1,22 @@
 <h2>New Post</h2>
-<mat-form-field style="width: 100%;">
-  <mat-label>Title</mat-label>
-  <input matInput class="form-control" required>
-</mat-form-field>
-<br>
-<mat-form-field style="width: 100%;">
-  <mat-label>Image</mat-label>
-  <input matInput class="form-control" required>
-</mat-form-field>
-<br>
-<mat-form-field style="width: 100%;">
-  <mat-label>Text</mat-label>
-  <input matInput class="form-control" required>
-</mat-form-field>
-<button mat-flat-button  (click)="submitNewPost()" color="primary">Post</button>
+<div>
+  <form [formGroup]="newPostForm">
+    <mat-form-field style="width: 100%;">
+      <mat-label>Title</mat-label>
+      <input matInput class="form-control" required formControlName="title">
+    </mat-form-field>
+    <br>
+    <mat-form-field style="width: 100%;">
+      <mat-label>Image</mat-label>
+      <input matInput class="form-control" required formControlName="image">
+    </mat-form-field>
+    <br>
+    <mat-form-field style="width: 100%;">
+      <mat-label>Text</mat-label>
+      <input matInput class="form-control" required formControlName="text">
+    </mat-form-field>
+  </form>
+</div>
+<div style="display: flex; flex-direction: row-reverse;">
+  <button mat-flat-button (click)="submitNewPost()" color="primary">Post</button>
+</div>

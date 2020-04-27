@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { DialogComponent } from './dialog/dialog.component';
 
@@ -14,10 +14,10 @@ export class NewPostComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  newPost() {
-    // Todo: add post to backend
-
-    const dialogRef = this.dialog.open(DialogComponent);
+  newPostDialog() {
+    const dialogRef = this.dialog.open(DialogComponent, {
+      width: '80%'
+    });
 
     dialogRef.afterClosed().subscribe(result => {
       console.log(`Dialog result: ${result}`);
