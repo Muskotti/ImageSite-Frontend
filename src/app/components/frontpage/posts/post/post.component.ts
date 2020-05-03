@@ -1,11 +1,15 @@
 import { Component, OnInit, Input } from '@angular/core';
 import PostsInterface from '../PostsInterface';
+import { HttpClient } from '@angular/common/http';
+import { Injectable } from '@angular/core';
 
 @Component({
   selector: 'app-post',
   templateUrl: './post.component.html',
   styleUrls: ['./post.component.css']
 })
+
+@Injectable()
 export class PostComponent implements OnInit {
 
   @Input() post: PostsInterface;
@@ -14,40 +18,41 @@ export class PostComponent implements OnInit {
   wait = true;
   comment = '';
 
-  constructor() { }
+  constructor(private http: HttpClient) { }
 
   ngOnInit(): void {
-  }
-
-  // delete when comments are done
-  makeComments() {
-    const post1 = 'comment 1';
-    const post2 = 'comment 2';
-    const post3 = 'comment 3';
-
-    this.comments.push(post1);
-    this.comments.push(post2);
-    this.comments.push(post3);
-    this.wait = false;
   }
 
   /**
    * Post commet to backend and adds to the list
    */
   postComment() {
-    // Todo: add comment to backend
     this.comments.push(this.comment);
+    const newComment = {
+      // ToDo: get id
+      id: 0,
+      text: this.comment,
+    };
+    this.http.post<any>('http://localhost:3000/posts/0', newComment).subscribe(data => {
+      console.log(data);
+    });
   }
 
   /**
    * Opens comments section and starts a fetch
    */
   openComments() {
-    // Todo: fetch comments
     this.panelOpenState = true;
 
-    // delete when comments are done
-    setTimeout(() => this.makeComments(), 5000);
+    // ToDo: get comments based on id
+    this.http.get<any>('http://localhost:3000/posts/0').subscribe(data => {
+      // tslint:disable-next-line: forin
+      for (const item of data.comments) {
+        this.comments.push(item);
+      }
+
+      this.wait = false;
+    });
   }
 
   /**

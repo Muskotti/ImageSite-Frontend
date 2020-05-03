@@ -26,14 +26,17 @@
       </mat-expansion-panel-header>
       <mat-spinner *ngIf="wait"></mat-spinner>
       <mat-list>
-        <mat-list-item *ngFor="let comment of comments"> {{comment}} </mat-list-item>
-       </mat-list>
+        <mat-list-item *ngFor="let comment of comments">
+          <p>{{comment}}</p>
+        </mat-list-item>
+      </mat-list>
       <mat-action-row>
         <mat-form-field style="width: 100%;">
           <mat-label>Comment</mat-label>
           <input matInput class="form-control" required [(ngModel)]="comment">
         </mat-form-field>
-        <button mat-flat-button (click)="postComment()" style="height: 50%; align-self: center;" color="primary">Post</button>
+        <button mat-flat-button (click)="postComment()" style="height: 50%; align-self: center;"
+          color="primary">Post</button>
       </mat-action-row>
     </mat-expansion-panel>
   </mat-accordion>

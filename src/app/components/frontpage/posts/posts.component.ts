@@ -18,9 +18,9 @@ export class PostsComponent implements OnInit {
 
   ngOnInit(): void {
     this.http.get<PostsInterface>('http://localhost:3000/posts').subscribe(data => {
-      console.log(data);
-      for (const item of data) {
-        this.posts.push(item);
+      // tslint:disable-next-line: forin
+      for (const item in data) {
+        this.posts.push(data[item]);
       }
     });
   }
