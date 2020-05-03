@@ -1,37 +1,28 @@
 import { Component, OnInit } from '@angular/core';
 import PostsInterface from './PostsInterface';
+import { HttpClient } from '@angular/common/http';
+import { Injectable } from '@angular/core';
 
 @Component({
   selector: 'app-posts',
   templateUrl: './posts.component.html',
   styleUrls: ['./posts.component.css']
 })
+
+@Injectable()
 export class PostsComponent implements OnInit {
 
   posts: PostsInterface[] = [];
 
-  constructor() { }
+  constructor(private http: HttpClient) { }
 
   ngOnInit(): void {
-    // fetch posts from backend
-    const obj: PostsInterface = {
-      title: 'Test',
-      poster: 'Matti',
-      image: 'https://material.angular.io/assets/img/examples/shiba2.jpg',
-      likes: 5,
-      text: 'Aute proident magna minim aute irure id cupidatat nisi id reprehenderit ad.',
-    };
-
-    const obj2: PostsInterface = {
-      title: 'asd',
-      poster: 'asd',
-      image: 'https://material.angular.io/assets/img/examples/shiba2.jpg',
-      likes: 100,
-      text: 'Lorem anim cillum ut qui labore anim in culpa ullamco ad eu anim ullamco laboris.',
-    };
-
-    this.posts.push(obj);
-    this.posts.push(obj2);
+    this.http.get<PostsInterface>('http://localhost:3000/posts').subscribe(data => {
+      console.log(data);
+      for (const item of data) {
+        this.posts.push(item);
+      }
+    });
   }
 }
 
