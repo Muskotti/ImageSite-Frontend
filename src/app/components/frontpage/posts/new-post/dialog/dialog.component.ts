@@ -30,23 +30,20 @@ export class DialogComponent implements OnInit {
 
   submitNewPost() {
 
-    let length = 0;
+    this.http.get<any>(GlobalConstants.apiURL + 'posts/last').subscribe(item => {
+      const obj: PostsInterface = {
+        id: item.lenght,
+        title: this.newPostForm.value.title,
+        poster: 'jaska',
+        image: this.newPostForm.value.image,
+        likes: 0,
+        text: this.newPostForm.value.text,
+      };
 
-    this.http.get<any>(GlobalConstants.apiURL + 'posts/last').subscribe(data => {
-      length = data.lenght;
-    });
-
-    const obj: PostsInterface = {
-      id: length,
-      title: this.newPostForm.value.title,
-      poster: 'jaska',
-      image: this.newPostForm.value.image,
-      likes: 0,
-      text: this.newPostForm.value.text,
-    };
-
-    this.http.post<PostsInterface>(GlobalConstants.apiURL + '/posts', obj).subscribe(data => {
-      console.log(data);
+      this.http.post<PostsInterface>(GlobalConstants.apiURL + 'posts', obj).subscribe(data => {
+        console.log(data);
+        location.reload();
+      });
     });
   }
 

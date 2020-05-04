@@ -22,6 +22,7 @@ export class PostsComponent implements OnInit {
       for (const item in data) {
         this.posts.push(data[item]);
       }
+      this.posts.reverse();
     });
   }
 }

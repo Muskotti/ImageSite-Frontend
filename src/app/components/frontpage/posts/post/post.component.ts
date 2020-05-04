@@ -46,8 +46,10 @@ export class PostComponent implements OnInit {
 
     this.http.get<any>(GlobalConstants.apiURL + 'posts/' + this.post.id).subscribe(data => {
       // tslint:disable-next-line: forin
-      for (const item of data.comments) {
-        this.comments.push(item);
+      if (data) {
+        for (const item of data.comments) {
+          this.comments.push(item);
+        }
       }
 
       this.wait = false;
