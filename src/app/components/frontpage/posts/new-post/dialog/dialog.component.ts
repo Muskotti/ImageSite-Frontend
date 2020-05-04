@@ -3,6 +3,7 @@ import { FormBuilder } from '@angular/forms';
 import PostsInterface from '../../PostsInterface';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { GlobalConstants } from '../../../../../global-constants';
 
 
 @Component({
@@ -28,16 +29,23 @@ export class DialogComponent implements OnInit {
   }
 
   submitNewPost() {
+
+    let length = 0;
+
+    this.http.get<any>(GlobalConstants.apiURL + 'posts/last').subscribe(data => {
+      length = data.lenght;
+    });
+
     const obj: PostsInterface = {
-      id: 3,
+      id: length,
       title: this.newPostForm.value.title,
-      poster: 'asd',
+      poster: 'jaska',
       image: this.newPostForm.value.image,
       likes: 0,
       text: this.newPostForm.value.text,
     };
 
-    this.http.post<PostsInterface>('http://localhost:3000/posts', obj).subscribe(data => {
+    this.http.post<PostsInterface>(GlobalConstants.apiURL + '/posts', obj).subscribe(data => {
       console.log(data);
     });
   }

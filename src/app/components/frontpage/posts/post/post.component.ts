@@ -2,6 +2,7 @@ import { Component, OnInit, Input } from '@angular/core';
 import PostsInterface from '../PostsInterface';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { GlobalConstants } from '../../../../global-constants';
 
 @Component({
   selector: 'app-post',
@@ -32,7 +33,7 @@ export class PostComponent implements OnInit {
       id: this.post.id,
       text: this.comment,
     };
-    this.http.post<any>('http://localhost:3000/posts/' + this.post.id, newComment).subscribe(data => {
+    this.http.post<any>(GlobalConstants.apiURL + 'posts/' + this.post.id, newComment).subscribe(data => {
       console.log(data);
     });
   }
@@ -43,7 +44,7 @@ export class PostComponent implements OnInit {
   openComments() {
     this.panelOpenState = true;
 
-    this.http.get<any>('http://localhost:3000/posts/' + this.post.id).subscribe(data => {
+    this.http.get<any>(GlobalConstants.apiURL + 'posts/' + this.post.id).subscribe(data => {
       // tslint:disable-next-line: forin
       for (const item of data.comments) {
         this.comments.push(item);

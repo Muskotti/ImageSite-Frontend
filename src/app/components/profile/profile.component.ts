@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+// import { GlobalConstants } from '../../global-constants';
 
 @Component({
   selector: 'app-profile',
@@ -7,9 +8,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ProfileComponent implements OnInit {
 
+  name: 'Jaska';
+
   constructor() { }
 
   ngOnInit(): void {
   }
+
+  // ToDo: get profile from backend
 
 }
