@@ -28,7 +28,6 @@ export class DialogComponent implements OnInit {
   }
 
   submitNewPost() {
-    // Todo: submit to backend
     const obj: PostsInterface = {
       id: 3,
       title: this.newPostForm.value.title,

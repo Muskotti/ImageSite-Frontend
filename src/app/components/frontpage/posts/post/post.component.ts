@@ -29,11 +29,10 @@ export class PostComponent implements OnInit {
   postComment() {
     this.comments.push(this.comment);
     const newComment = {
-      // ToDo: get id
-      id: 0,
+      id: this.post.id,
       text: this.comment,
     };
-    this.http.post<any>('http://localhost:3000/posts/0', newComment).subscribe(data => {
+    this.http.post<any>('http://localhost:3000/posts/' + this.post.id, newComment).subscribe(data => {
       console.log(data);
     });
   }
@@ -44,8 +43,7 @@ export class PostComponent implements OnInit {
   openComments() {
     this.panelOpenState = true;
 
-    // ToDo: get comments based on id
-    this.http.get<any>('http://localhost:3000/posts/0').subscribe(data => {
+    this.http.get<any>('http://localhost:3000/posts/' + this.post.id).subscribe(data => {
       // tslint:disable-next-line: forin
       for (const item of data.comments) {
         this.comments.push(item);
