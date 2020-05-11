@@ -1,13 +1,13 @@
 <mat-toolbar class="toolbar" color='primary'>
   <span>Application Title</span>
   <span class="fill"></span>
-  <button *ngIf="!loggedIn" mat-flat-button (click)="login()">Login</button>
+  <button *ngIf="!loggedIn" mat-flat-button (click)="loginDialog()">Login</button>
   <button *ngIf="loggedIn" mat-flat-button [matMenuTriggerFor]="menu">
     <mat-icon style="padding-right: 16px;">account_circle</mat-icon>
-    <span>Hello {{user}}</span>
+    <span style="padding-right: 16px;">Hello {{username}}</span>
     <mat-icon>keyboard_arrow_down</mat-icon>
   </button>
   <mat-menu #menu="matMenu" xPosition="before">
-    <button mat-menu-item (click)="login()">Logout</button>
+    <button mat-menu-item (click)="logout()">Logout</button>
   </mat-menu>
 </mat-toolbar>
