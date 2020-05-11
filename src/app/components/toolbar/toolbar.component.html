@@ -9,6 +9,7 @@
     <mat-icon>keyboard_arrow_down</mat-icon>
   </button>
   <mat-menu #menu="matMenu" xPosition="before">
+    <button mat-menu-item (click)="goToProfile()">Profile</button>
     <button mat-menu-item (click)="logout()">Logout</button>
   </mat-menu>
 </mat-toolbar>

@@ -2,6 +2,7 @@ import { Component, OnInit, Inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { GlobalConstants } from '../../global-constants';
+import { Router } from '@angular/router';
 
 export interface DialogData {
   username: string;
@@ -19,9 +20,13 @@ export class ToolbarComponent implements OnInit {
   username: string;
   password: string;
 
-  constructor(public dialog: MatDialog) { }
+  constructor(public dialog: MatDialog, private router: Router) { }
 
   ngOnInit(): void {
+  }
+
+  goToProfile() {
+    this.router.navigateByUrl('/profile');
   }
 
   loginDialog() {
@@ -53,6 +58,7 @@ export class ToolbarComponent implements OnInit {
   }
 
   logout() {
+    this.router.navigateByUrl('/frontpage');
     this.username = '';
     this.password = '';
     this.loggedIn = false;
