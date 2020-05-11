@@ -31,10 +31,7 @@ export class SettingsComponent implements OnInit {
       password: this.password,
     };
 
-    this.http.post<any>(GlobalConstants.apiURL + 'profile/' + this.username, obj).subscribe(data => {
-      // this.password = data.password;
-      console.log(data);
-    });
+    this.http.post<any>(GlobalConstants.apiURL + 'profile/' + this.username, obj);
   }
 
 }
