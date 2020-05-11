@@ -1,0 +1,10 @@
+.card-max {
+  max-width: 600px;
+  margin-bottom: 6px;
+  min-width: 600px;
+}
+
+.center {
+  display: flex;
+  justify-content: center;
+}

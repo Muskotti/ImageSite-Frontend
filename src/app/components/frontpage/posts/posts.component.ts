@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import PostsInterface from './PostsInterface';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { GlobalConstants } from '../../../global-constants';
 
 @Component({
   selector: 'app-posts',
@@ -17,7 +18,7 @@ export class PostsComponent implements OnInit {
   constructor(private http: HttpClient) { }
 
   ngOnInit(): void {
-    this.http.get<PostsInterface>('http://localhost:3000/posts').subscribe(data => {
+    this.http.get<PostsInterface>(GlobalConstants.apiURL + 'posts').subscribe(data => {
       // tslint:disable-next-line: forin
       for (const item in data) {
         this.posts.push(data[item]);

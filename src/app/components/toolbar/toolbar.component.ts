@@ -26,7 +26,7 @@ export class ToolbarComponent implements OnInit {
   }
 
   goToProfile() {
-    this.router.navigateByUrl('/profile');
+    this.router.navigate(['/profile', {username: this.username}]);
   }
 
   loginDialog() {
