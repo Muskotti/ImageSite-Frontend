@@ -1,6 +1,7 @@
 <mat-toolbar class="toolbar" color='primary'>
   <span>Application Title</span>
   <span class="fill"></span>
+  <button *ngIf="!loggedIn" mat-flat-button (click)="registerDialog()" color="accent" style="margin-right: 16px;">Register</button>
   <button *ngIf="!loggedIn" mat-flat-button (click)="loginDialog()">Login</button>
   <button *ngIf="loggedIn" mat-flat-button [matMenuTriggerFor]="menu">
     <mat-icon style="padding-right: 16px;">account_circle</mat-icon>

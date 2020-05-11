@@ -38,7 +38,23 @@ export class ToolbarComponent implements OnInit {
     });
   }
 
+  registerDialog() {
+    const dialogRef = this.dialog.open(DialogRegisterDialog, {
+      width: '80%',
+      data: { username: this.username, password: this.password }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.username = result;
+        this.loggedIn = true;
+      }
+    });
+  }
+
   logout() {
+    this.username = '';
+    this.password = '';
     this.loggedIn = false;
   }
 }
@@ -73,5 +89,36 @@ export class DialogLoginDialog {
       });
     }
   }
+}
 
+@Component({
+  selector: 'app-register',
+  templateUrl: 'register.component.html',
+})
+// tslint:disable-next-line: component-class-suffix
+export class DialogRegisterDialog {
+
+  failed = false;
+
+  constructor(
+    public dialogRef: MatDialogRef<DialogRegisterDialog>,
+    @Inject(MAT_DIALOG_DATA) public data: DialogData,
+    private http: HttpClient) { }
+
+  register() {
+    if (this.data.username && this.data.password) {
+      const obj = {
+        username: this.data.username,
+        password: this.data.password,
+      };
+
+      this.http.post(GlobalConstants.apiURL + 'register', obj).subscribe(item => {
+        if (item) {
+          this.dialogRef.close(this.data.username);
+        } else {
+          this.failed = true;
+        }
+      });
+    }
+  }
 }

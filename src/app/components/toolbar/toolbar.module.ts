@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { ToolbarComponent, DialogLoginDialog } from './toolbar.component';
+import { ToolbarComponent, DialogLoginDialog, DialogRegisterDialog } from './toolbar.component';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
@@ -9,7 +9,6 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { FormsModule } from '@angular/forms';
-import { MatSnackBar } from '@angular/material/snack-bar';
 
 @NgModule({
   imports: [
@@ -26,6 +25,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
   declarations: [
     ToolbarComponent,
     DialogLoginDialog,
+    DialogRegisterDialog,
   ],
   exports: [
     ToolbarComponent,
