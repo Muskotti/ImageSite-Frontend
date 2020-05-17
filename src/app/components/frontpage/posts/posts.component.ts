@@ -17,6 +17,9 @@ export class PostsComponent implements OnInit {
 
   constructor(private http: HttpClient) { }
 
+  /**
+   * Gets the posts from backend and sets them to the list
+   */
   ngOnInit(): void {
     this.http.get<any>(GlobalConstants.apiURL + 'posts').subscribe(data => {
       for (const item of data.data) {

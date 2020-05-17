@@ -14,12 +14,18 @@ export class NewPostComponent implements OnInit {
 
   constructor(public dialog: MatDialog) { }
 
+  /**
+   * Cheacks if the user is logged in
+   */
   ngOnInit(): void {
     if (Cookies.get('login')) {
       this.canPost = true;
     }
   }
 
+  /**
+   * Opens dialog component
+   */
   newPostDialog() {
     const dialogRef = this.dialog.open(DialogComponent, {
       width: '80%'

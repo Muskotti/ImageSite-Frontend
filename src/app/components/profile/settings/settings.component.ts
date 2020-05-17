@@ -19,6 +19,11 @@ export class SettingsComponent implements OnInit {
 
   constructor(private http: HttpClient, private router: ActivatedRoute) { }
 
+  /**
+   * Cheacks if user is logged in
+   *
+   * If user is logged in and is on logged in users page user can edit it
+   */
   ngOnInit(): void {
     const token = Cookies.get('login');
 
@@ -35,6 +40,9 @@ export class SettingsComponent implements OnInit {
     }
   }
 
+  /**
+   * Saves the given info to backend
+   */
   save() {
     const profile = this.router.snapshot.paramMap.get('username');
 

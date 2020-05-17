@@ -19,6 +19,11 @@ export class DialogComponent implements OnInit {
 
   newPostForm;
 
+  /**
+   * Builds new form
+   * @param formBuilder form for the new post
+   * @param http httpclient to send new post to backend
+   */
   constructor( private formBuilder: FormBuilder, private http: HttpClient) {
     this.newPostForm = this.formBuilder.group({
       title: '',
@@ -30,8 +35,15 @@ export class DialogComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  /**
+   * Submits new post to backend
+   *
+   * Firts gets the lenght of the posts list array
+   * Then sets the length as the id
+   * Gets the username from login cookie
+   * Lastly sends the new post to backend and reloads
+   */
   submitNewPost() {
-
     this.http.get<any>(GlobalConstants.apiURL + 'posts/last').subscribe(item => {
       const user = Cookies.get('login');
       const obj: PostsInterface = {

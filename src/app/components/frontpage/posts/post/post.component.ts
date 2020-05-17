@@ -25,7 +25,7 @@ export class PostComponent implements OnInit {
   }
 
   /**
-   * Post commet to backend and adds to the list
+   * Post comment to backend and adds to the list
    */
   postComment() {
     const newComment = {

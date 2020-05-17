@@ -24,25 +24,26 @@ export class ToolbarComponent implements OnInit {
 
   constructor(public dialog: MatDialog, private router: Router, private http: HttpClient) { }
 
+  /**
+   * Cheacks if user is logged in
+   */
   ngOnInit(): void {
     const user = Cookies.get('login');
     if (user) {
-      this.getUser().then(res => {
-        const obj = {
-          token: res
-        };
+      const obj = {
+        token: user
+      };
 
-        this.http.post(GlobalConstants.apiURL + 'relogin', obj).subscribe(token => {
-          this.log(token);
-        });
+      this.http.post(GlobalConstants.apiURL + 'relogin', obj).subscribe(token => {
+        this.log(token);
       });
     }
   }
 
-  goHome() {
-    this.router.navigateByUrl('/frontpage');
-  }
-
+  /**
+   * Logs in to given token
+   * @param token login token
+   */
   log(token) {
     if (token.token) {
       const obj = decode(token.token);
@@ -51,14 +52,23 @@ export class ToolbarComponent implements OnInit {
     }
   }
 
-  async getUser() {
-    return await Cookies.get('login');
+  /**
+   * Goes to frontpage
+   */
+  goHome() {
+    this.router.navigateByUrl('/frontpage');
   }
 
+  /**
+   * navigates to profile page
+   */
   goToProfile() {
     this.router.navigate(['/profile', { username: this.username }]);
   }
 
+  /**
+   * Opens Login dialog
+   */
   loginDialog() {
     const dialogRef = this.dialog.open(DialogLoginDialog, {
       width: '80%',
@@ -75,6 +85,9 @@ export class ToolbarComponent implements OnInit {
     });
   }
 
+  /**
+   * Opens registeration dialog
+   */
   registerDialog() {
     const dialogRef = this.dialog.open(DialogRegisterDialog, {
       width: '80%',
@@ -92,6 +105,9 @@ export class ToolbarComponent implements OnInit {
     });
   }
 
+  /**
+   * logsout and sets values to empty
+   */
   logout() {
     this.router.navigateByUrl('/frontpage');
     this.username = '';
@@ -114,8 +130,11 @@ export class DialogLoginDialog {
   constructor(
     public dialogRef: MatDialogRef<DialogLoginDialog>,
     @Inject(MAT_DIALOG_DATA) public data: DialogData,
-    private http: HttpClient) { }
+    private http: HttpClient) {}
 
+  /**
+   * Cheaks if given data is valid and logsin
+   */
   login() {
     if (this.data.username && this.data.password) {
       const obj = {
@@ -152,6 +171,9 @@ export class DialogRegisterDialog {
     @Inject(MAT_DIALOG_DATA) public data: DialogData,
     private http: HttpClient) { }
 
+  /**
+   * Makes new user pased on given data and logs in to user
+   */
   register() {
     if (this.data.username && this.data.password) {
       const obj = {
