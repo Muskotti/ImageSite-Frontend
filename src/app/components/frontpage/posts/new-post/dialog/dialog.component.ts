@@ -41,7 +41,6 @@ export class DialogComponent implements OnInit {
       };
 
       this.http.post<PostsInterface>(GlobalConstants.apiURL + 'posts', obj).subscribe(data => {
-        console.log(data);
         location.reload();
       });
     });

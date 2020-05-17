@@ -18,10 +18,9 @@ export class PostsComponent implements OnInit {
   constructor(private http: HttpClient) { }
 
   ngOnInit(): void {
-    this.http.get<PostsInterface>(GlobalConstants.apiURL + 'posts').subscribe(data => {
-      // tslint:disable-next-line: forin
-      for (const item in data) {
-        this.posts.push(data[item]);
+    this.http.get<any>(GlobalConstants.apiURL + 'posts').subscribe(data => {
+      for (const item of data.data) {
+        this.posts.push(item);
       }
       this.posts.reverse();
     });

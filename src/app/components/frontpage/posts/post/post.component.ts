@@ -28,13 +28,13 @@ export class PostComponent implements OnInit {
    * Post commet to backend and adds to the list
    */
   postComment() {
-    this.comments.push(this.comment);
     const newComment = {
       id: this.post.id,
       text: this.comment,
     };
     this.http.post<any>(GlobalConstants.apiURL + 'posts/' + this.post.id, newComment).subscribe(data => {
-      console.log(data);
+      this.comments.push(data.text);
+      this.comment = '';
     });
   }
 
@@ -45,7 +45,6 @@ export class PostComponent implements OnInit {
     this.panelOpenState = true;
 
     this.http.get<any>(GlobalConstants.apiURL + 'posts/' + this.post.id).subscribe(data => {
-      // tslint:disable-next-line: forin
       if (data) {
         for (const item of data.comments) {
           this.comments.push(item);
