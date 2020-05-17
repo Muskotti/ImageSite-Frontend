@@ -20,7 +20,7 @@ export class SettingsComponent implements OnInit {
   constructor(private http: HttpClient, private router: ActivatedRoute) { }
 
   ngOnInit(): void {
-    const token = Cookies.get('login')
+    const token = Cookies.get('login');
 
     if (token) {
       const user = decode(token);
