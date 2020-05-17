@@ -3,6 +3,8 @@ import { HttpClient } from '@angular/common/http';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { GlobalConstants } from '../../global-constants';
 import { Router } from '@angular/router';
+import Cookies from 'js-cookie';
+import decode from 'jwt-decode';
 
 export interface DialogData {
   username: string;
@@ -19,14 +21,40 @@ export class ToolbarComponent implements OnInit {
   loggedIn = false;
   username: string;
   password: string;
+  token: string;
 
-  constructor(public dialog: MatDialog, private router: Router) { }
+  constructor(public dialog: MatDialog, private router: Router, private http: HttpClient) { }
 
   ngOnInit(): void {
+    const user = Cookies.get('login');
+    if (user) {
+      this.getUser().then(res => {
+        const obj = {
+          token: res
+        };
+
+        this.http.post(GlobalConstants.apiURL + 'relogin', obj).subscribe(token => {
+          this.log(token);
+        });
+      });
+    }
+  }
+
+  log(token) {
+    if (token.token) {
+      const obj = decode(token.token);
+      this.username = obj.username;
+      this.loggedIn = true;
+      this.token = token.token;
+    }
+  }
+
+  async getUser() {
+    return await Cookies.get('login');
   }
 
   goToProfile() {
-    this.router.navigate(['/profile', {username: this.username}]);
+    this.router.navigate(['/profile', { username: this.username }]);
   }
 
   loginDialog() {
@@ -35,10 +63,12 @@ export class ToolbarComponent implements OnInit {
       data: { username: this.username, password: this.password }
     });
 
-    dialogRef.afterClosed().subscribe(result => {
-      if (result) {
-        this.username = result;
+    dialogRef.afterClosed().subscribe(item => {
+      if (item) {
+        this.username = item.user;
         this.loggedIn = true;
+        this.token = item.token.token;
+        Cookies.set('login', item.token.token, { expires: 1 });
       }
     });
   }
@@ -51,8 +81,11 @@ export class ToolbarComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        this.username = result;
+        const dc = decode(result.token);
+        this.username = dc.username;
+        this.token = result.token;
         this.loggedIn = true;
+        Cookies.set('login', result.token, { expires: 1 });
       }
     });
   }
@@ -62,6 +95,7 @@ export class ToolbarComponent implements OnInit {
     this.username = '';
     this.password = '';
     this.loggedIn = false;
+    Cookies.set('login', null, { expires: 1 });
   }
 }
 
@@ -86,9 +120,13 @@ export class DialogLoginDialog {
         password: this.data.password,
       };
 
-      this.http.post(GlobalConstants.apiURL + 'login', obj).subscribe(item => {
-        if (item) {
-          this.dialogRef.close(this.data.username);
+      this.http.post(GlobalConstants.apiURL + 'login', obj).subscribe(token => {
+        if (token) {
+          const tmp = {
+            user: this.data.username,
+            token,
+          };
+          this.dialogRef.close(tmp);
         } else {
           this.failed = true;
         }
@@ -120,7 +158,7 @@ export class DialogRegisterDialog {
 
       this.http.post(GlobalConstants.apiURL + 'register', obj).subscribe(item => {
         if (item) {
-          this.dialogRef.close(this.data.username);
+          this.dialogRef.close(item);
         } else {
           this.failed = true;
         }
