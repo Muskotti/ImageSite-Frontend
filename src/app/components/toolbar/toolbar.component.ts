@@ -21,7 +21,6 @@ export class ToolbarComponent implements OnInit {
   loggedIn = false;
   username: string;
   password: string;
-  token: string;
 
   constructor(public dialog: MatDialog, private router: Router, private http: HttpClient) { }
 
@@ -45,7 +44,6 @@ export class ToolbarComponent implements OnInit {
       const obj = decode(token.token);
       this.username = obj.username;
       this.loggedIn = true;
-      this.token = token.token;
     }
   }
 
@@ -67,7 +65,6 @@ export class ToolbarComponent implements OnInit {
       if (item) {
         this.username = item.user;
         this.loggedIn = true;
-        this.token = item.token.token;
         Cookies.set('login', item.token.token, { expires: 1 });
       }
     });
@@ -83,7 +80,6 @@ export class ToolbarComponent implements OnInit {
       if (result) {
         const dc = decode(result.token);
         this.username = dc.username;
-        this.token = result.token;
         this.loggedIn = true;
         Cookies.set('login', result.token, { expires: 1 });
       }
