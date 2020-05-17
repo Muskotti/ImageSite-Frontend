@@ -66,6 +66,7 @@ export class ToolbarComponent implements OnInit {
         this.username = item.user;
         this.loggedIn = true;
         Cookies.set('login', item.token.token, { expires: 1 });
+        location.reload();
       }
     });
   }
@@ -82,6 +83,7 @@ export class ToolbarComponent implements OnInit {
         this.username = dc.username;
         this.loggedIn = true;
         Cookies.set('login', result.token, { expires: 1 });
+        location.reload();
       }
     });
   }
@@ -91,7 +93,8 @@ export class ToolbarComponent implements OnInit {
     this.username = '';
     this.password = '';
     this.loggedIn = false;
-    Cookies.set('login', null, { expires: 1 });
+    Cookies.set('login', '', { expires: 1 });
+    location.reload();
   }
 }
 

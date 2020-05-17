@@ -1,6 +1,7 @@
 import { Component, OnInit, Output } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { DialogComponent } from './dialog/dialog.component';
+import Cookies from 'js-cookie';
 
 @Component({
   selector: 'app-new-post',
@@ -9,9 +10,14 @@ import { DialogComponent } from './dialog/dialog.component';
 })
 export class NewPostComponent implements OnInit {
 
+  canPost = false;
+
   constructor(public dialog: MatDialog) { }
 
   ngOnInit(): void {
+    if (Cookies.get('login')) {
+      this.canPost = true;
+    }
   }
 
   newPostDialog() {
