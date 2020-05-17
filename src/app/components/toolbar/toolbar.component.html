@@ -1,4 +1,7 @@
 <mat-toolbar class="toolbar" color='primary'>
+  <button mat-icon-button (click)="goHome()" style="margin-right: 16px;">
+    <mat-icon>home</mat-icon>
+  </button>
   <span>Image host site</span>
   <span class="fill"></span>
   <button *ngIf="!loggedIn" mat-flat-button (click)="registerDialog()" color="accent" style="margin-right: 16px;">Register</button>

@@ -39,6 +39,10 @@ export class ToolbarComponent implements OnInit {
     }
   }
 
+  goHome() {
+    this.router.navigateByUrl('/frontpage');
+  }
+
   log(token) {
     if (token.token) {
       const obj = decode(token.token);
