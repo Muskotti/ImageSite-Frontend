@@ -20,14 +20,18 @@ export class SettingsComponent implements OnInit {
   constructor(private http: HttpClient, private router: ActivatedRoute) { }
 
   ngOnInit(): void {
-    const user = decode(Cookies.get('login'));
-    if (user.username === this.router.snapshot.paramMap.get('username')) {
-      this.isLogged = true;
-      const profile = this.router.snapshot.paramMap.get('username');
-      this.http.get<any>(GlobalConstants.apiURL + 'profile/' + profile).subscribe(data => {
-        this.username = data.username;
-        this.password = data.password;
-      });
+    const token = Cookies.get('login')
+
+    if (token) {
+      const user = decode(token);
+      if (user.username === this.router.snapshot.paramMap.get('username')) {
+        this.isLogged = true;
+        const profile = this.router.snapshot.paramMap.get('username');
+        this.http.get<any>(GlobalConstants.apiURL + 'profile/' + profile).subscribe(data => {
+          this.username = data.username;
+          this.password = data.password;
+        });
+      }
     }
   }
 
